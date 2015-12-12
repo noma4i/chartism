@@ -13,17 +13,42 @@ module Chartism
       @chartism_chart_id ||= 0
       options = chartkick_deep_merge(Chartism.options, options)
       element_id = options.delete(:id) || "chart-#{@chartism_chart_id += 1}"
-      height = options.delete(:height) || "300px"
+      height = options.delete(:height) || '300px'
+
+      plugin_labels = <<JS
+    Chartist.plugins.ctPointLabels({
+      textAnchor: 'middle'
+    })
+JS
+
+      plugin_zoom = <<JS
+    Chartist.plugins.zoom({
+      onZoom : function(chart, reset) { storeReset(reset) }
+    })
+JS
+      plugins_threshold = <<JS
+    Chartist.plugins.ctThreshold({
+      threshold: 2
+    })
+JS
+
+      plugins = []
+      if options[:plugin_labels].present?
+        plugins << plugin_labels
+      end
+
+      if options[:plugins_threshold].present?
+        plugins << plugins_threshold
+      end
 
       html = (options.delete(:html) || %(<div id="%{id}" style="height: %{height}; text-align: center; color: #999; line-height: %{height}; font-size: 14px; font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;"></div>)) % {id: ERB::Util.html_escape(element_id), height: ERB::Util.html_escape(height)}
 
       js = <<JS
 <script type="text/javascript">
   new Chartist.#{klass}('#chart-#{@chartism_chart_id}', #{data_source.to_json}, {
+  showArea: true,
   plugins: [
-    Chartist.plugins.ctPointLabels({
-      textAnchor: 'middle'
-    })
+   #{plugins.join(',')}
   ]
 });
 </script>
