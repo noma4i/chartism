@@ -1,3 +1,3 @@
 //= require chartist
-//= require chartist-zoom
-//= require chartist-pointlabels
+//= require chartist-plugin-zoom
+//= require chartist-plugin-pointlabels
