@@ -5,7 +5,7 @@ require 'chartism/version'
 Gem::Specification.new do |s|
   s.name          = 'chartism'
   s.version       = Chartism::Rails::VERSION
-  s.authors       = ['noma4i']
+  s.authors       = ['Alexander Tsirel']
   s.email         = ['noma4i@gmail.com']
   s.summary       = %q{Chartism for Chartist.js - Simple responsive charts}
   s.description   = %q{Chartist.js for Rails}
