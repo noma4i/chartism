@@ -9,7 +9,7 @@ Works with Rails
 ## Installation
 
 ```ruby
-  gem "chartism"
+  gem "chartism", git: "https://github.com/noma4i/chartism"
 ```
 
 ## Usage
